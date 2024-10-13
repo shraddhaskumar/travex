@@ -18,6 +18,8 @@
         <li><a href="#">Services</a></li>
         <li><a href="about.html">About Us</a></li>
         <li><a href="#">Contact</a></li>
+        <li><a href="#" id="loginBtn">Login</a></li>
+        <li><a href="#" id="signupBtn">Sign Up</a></li>
       </ul>
     </nav>
     <div class="hero">
@@ -27,19 +29,108 @@
     </div>
   </header>
 
-  <section class="features">
-    <div class="feature-box">
-      <h2>Adventure Tours</h2>
-      <p>Join us for thrilling adventures and unforgettable experiences.</p>
+  <!-- Signup Form -->
+  <div id="signupModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeSignup">&times;</span>
+      <h2>Sign Up</h2>
+      <form id="signupForm">
+        <label for="signupName">Name:</label>
+        <input type="text" id="signupName" name="signupName" required>
+        
+        <label for="signupEmail">Email:</label>
+        <input type="email" id="signupEmail" name="signupEmail" required>
+        
+        <label for="signupPhoneNumber">Phone Number:</label>
+        <input type="tel" id="signupPhoneNumber" name="signupPhoneNumber" required>
+        
+        <label for="signupAddress">Address:</label>
+        <input type="text" id="signupAddress" name="signupAddress" required>
+        
+        <label for="signupPreferences">Preferences:</label>
+        <input ty pe="text" id="signupPreferences" name="signupPreferences">
+        
+        <label for="signupPassword">Password:</label>
+        <input type="password" id="signupPassword" name="signupPassword" required>
+        
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+        
+        <button type="submit">Sign Up</button>
+      </form>
     </div>
-    <div class="feature-box">
-      <h2>Luxury Travel</h2>
-      <p>Experience comfort and luxury while you explore new destinations.</p>
+  </div>
+
+  <!-- Login Form -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeLogin">&times;</span>
+      <h2>Login</h2>
+      <form id="loginForm">
+        <label for="loginIdentifier">Client ID or Email:</label>
+        <input type="text" id="loginIdentifier" name="loginIdentifier" required>
+        
+        <label for="loginPassword">Password:</label>
+        <input type="password" id="loginPassword" name="loginPassword" required>
+        
+        <button type="submit">Login</button>
+      </form>
     </div>
-    <div class="feature-box">
-      <h2>Custom Packages</h2>
-      <p>We create custom travel packages tailored to your preferences.</p>
-    </div>
-  </section>
+  </div>
+
+  <script>
+    // Get modal elements
+    const loginModal = document.getElementById('loginModal');
+    const signupModal = document.getElementById('signupModal');
+
+    // Get open modal buttons
+    const loginBtn = document.getElementById('loginBtn');
+    const signupBtn = document.getElementById('signupBtn');
+
+    // Get close buttons
+    const closeLogin = document.getElementById('closeLogin');
+    const closeSignup = document.getElementById('closeSignup');
+
+    // Open login modal
+    loginBtn.onclick = function() {
+      loginModal.style.display = 'block';
+    };
+
+    // Open signup modal
+    signupBtn.onclick = function() {
+      signupModal.style.display = 'block';
+    };
+
+    // Close login modal
+    closeLogin.onclick = function() {
+      loginModal.style.display = 'none';
+    };
+
+    // Close signup modal
+    closeSignup.onclick = function() {
+      signupModal.style.display = 'none';
+    };
+
+    // Close modals when clicking outside of the modal
+    window.onclick = function(event) {
+      if (event.target == loginModal) {
+        loginModal.style.display = 'none';
+      }
+      if (event.target == signupModal) {
+        signupModal.style.display = 'none';
+      }
+    };
+
+    // Form validation for password match on signup
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+      const password = document.getElementById('signupPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      if (password !== confirmPassword) {
+        alert('Passwords do not match!');
+        event.preventDefault(); // Stop form submission
+      }
+    });
+  </script>
 </body>
 </html>
