@@ -6,7 +6,7 @@
 }
 
 body {
-    background:black;
+    background: url('https://img.freepik.com/free-photo/fog-dark-clouds-mountains_1204-503.jpg?t=st=1728835573~exp=1728839173~hmac=aebec3ab726269d94b99f3afdb81bf307f130b4a17a97de956a06f86efaa3ebe&w=1060') no-repeat center center fixed;    
     background-size: cover; 
     color: #333;
     scroll-behavior: smooth;
