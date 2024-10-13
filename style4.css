@@ -6,7 +6,7 @@
 }
 
 body {
-    background: url('https://img.freepik.com/free-photo/beautiful-viewpoint-koh-nangyuan-island-surat-thani-thailand_335224-1097.jpg?t=st=1728830288~exp=1728833888~hmac=34c72c518a42e6c7959cfd419f7594893e38c6d5351d6799ad0e074312addfd8&w=1380') no-repeat center center fixed;    
+    background:black;
     background-size: cover; 
     color: #333;
     scroll-behavior: smooth;
