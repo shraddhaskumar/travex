@@ -31,7 +31,7 @@ header::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to bottom, rgba(0, 83, 156, 0.6), rgba(50, 205, 50, 0.7)); /* Navy Blue to Green gradient overlay */
+  background: linear-gradient(to bottom, rgba(0, 83, 156, 0.6), rgba(50, 205, 50, 0.7));
   z-index: 0;
 }
 
@@ -69,11 +69,10 @@ nav {
 }
 
 .nav-links a:hover {
-  background-color: #32cd32; /* Green */
+  background-color: #32cd32;
   color: white;
 }
 
-/* Adjust hero text for readability */
 .hero {
   z-index: 1;
   animation: fadeInUp 1.5s ease-in-out;
@@ -99,7 +98,7 @@ nav {
   padding: 12px 30px;
   font-size: 18px;
   color: white;
-  background-color: #00539CFF; /* Navy Blue */
+  background-color: #00539CFF;
   border: none;
   cursor: pointer;
   text-decoration: none;
@@ -109,7 +108,7 @@ nav {
 }
 
 .btn:hover {
-  background-color: #32cd32; /* Green */
+  background-color: #32cd32;
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(50, 205, 50, 0.3);
 }
@@ -122,7 +121,7 @@ nav {
 }
 
 .feature-box {
-  background-color: #32cd32; /* Green */
+  background-color: #32cd32;
   color: white;
   padding: 30px;
   width: 30%;
@@ -146,7 +145,7 @@ nav {
 footer {
   text-align: center;
   padding: 30px;
-  background-color: #00539CFF; /* Navy Blue */
+  background-color: #00539CFF;
   color: white;
   margin-top: 40px;
 }
