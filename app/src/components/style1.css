@@ -1,0 +1,326 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    background-color: #f0f0f0;
+    color: #333;
+    scroll-behavior: smooth;
+  }
+  
+  /* Set the background image and animate it */
+  header {
+    height: 100vh;
+    background: url('https://img.freepik.com/free-photo/beautiful-girl-standing-viewpoint-koh-nangyuan-island-near-koh-tao-island-surat-thani-thailand_335224-1094.jpg?t=st=1728474622~exp=1728478222~hmac=1784158287f9ff6be0a951c1a6a81f4528283b3515bd600652626da9f403d5bf&w=1060') no-repeat center center/cover;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    animation: bgMoveUpFadeToBlack 20s infinite linear;
+    filter: brightness(80%);
+  }
+  
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0, 83, 156, 0.6), rgba(50, 205, 50, 0.7)); /* Navy Blue to Green gradient overlay */
+    z-index: 0;
+  }
+  
+  nav {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 50px;
+    align-items: center;
+    z-index: 1;
+  }
+  
+  .logo h1 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 2px;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    background-color: #32cd32; /* Green */
+    color: white;
+  }
+  
+  .hero {
+    z-index: 1;
+    animation: fadeInUp 1.5s ease-in-out;
+    max-width: 800px;
+  }
+  
+  .hero h2 {
+    font-size: 60px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+  }
+  
+  .hero p {
+    font-size: 20px;
+    margin-bottom: 40px;
+    line-height: 1.6;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  }
+  
+  .btn {
+    padding: 12px 30px;
+    font-size: 18px;
+    color: white;
+    background-color: #00539CFF; /* Navy Blue */
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0, 83, 156, 0.3);
+  }
+  
+  .btn:hover {
+    background-color: #32cd32; /* Green */
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(50, 205, 50, 0.3);
+  }
+  
+  .features {
+    display: flex;
+    justify-content: space-around;
+    padding: 80px 0;
+    background-color: #f0f0f0;
+  }
+  
+  .feature-box {
+    background-color: #32cd32; /* Green */
+    color: white;
+    padding: 30px;
+    width: 30%;
+    text-align: center;
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    box-shadow: 0 5px 10px rgba(50, 205, 50, 0.2);
+  }
+  
+  .feature-box h3 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+  
+  .feature-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(50, 205, 50, 0.4);
+  }
+  
+  footer {
+    text-align: center;
+    padding: 30px;
+    background-color: #00539CFF; /* Navy Blue */
+    color: white;
+    margin-top: 40px;
+  }
+  
+  footer p {
+    font-size: 16px;
+  }
+  
+  /* Background moving up animation and fading into black */
+  @keyframes bgMoveUpFadeToBlack {
+    0% {
+      background-position: center center;
+      background-color: transparent;
+    }
+    50% {
+      background-position: center -500px;
+      background-color: transparent;
+    }
+    100% {
+      background-position: center -1000px;
+      background-color: black;
+    }
+  }
+  
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  /* General styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.nav-links {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links li {
+  display: inline;
+  margin: 0 15px;
+}
+
+.nav-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-links li a:hover {
+  color: #f4b400;
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 10px;
+}
+
+.modal-content h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.modal-content label {
+  display: block;
+  margin: 10px 0 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="email"],
+.modal-content input[type="tel"],
+.modal-content input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.modal-content button {
+  width: 100%;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-content button:hover {
+  background-color: #f4b400;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Hero section styles */
+.hero {
+  text-align: center;
+  background: url('hero-image.jpg') no-repeat center center/cover;
+  color: #fff;
+  padding: 150px 0;
+}
+
+.hero h2 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.hero .btn {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 30px;
+  text-decoration: none;
+  font-size: 18px;
+  border-radius: 5px;
+}
+
+.hero .btn:hover {
+  background-color: #f4b400;
+}
+
+  
