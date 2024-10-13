@@ -1,168 +1,179 @@
-/* Global Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: #f0f0f0;
+    background: url('https://img.freepik.com/free-photo/blue-peak-scenic-landscapes-river_1417-39.jpg?t=st=1728824404~exp=1728828004~hmac=2f774f999fda5fde2228f55641cdf834642f06e5122a24bf1f5ccf53b1c9224e&w=1060') no-repeat center center fixed;
+    background-size: cover;
     color: #333;
+    scroll-behavior: smooth;
+    animation: fadeIn 2s ease-in-out;
 }
 
-/* Navigation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 nav {
-    background-color: #00539CFF; /* Navy Blue */
-    padding: 15px 50px; /* Increased top and bottom padding */
+    position: fixed;
+    top: 0;
+    width: 100%;
     display: flex;
     justify-content: space-between;
+    padding: 10px 50px;
     align-items: center;
-    position: relative;
-    z-index: 2; /* To stay above background */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
-    border-radius: 8px; /* Rounded corners */
+    background-color: transparent;
+    z-index: 100;
 }
 
 .logo h1 {
-    font-size: 32px; /* Increased font size */
+    font-size: 30px;
     font-weight: bold;
-    color: #fff;
-    letter-spacing: 1px; /* Slight letter spacing for elegance */
+    color: #000000;
+    letter-spacing: 2px;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 30px; /* Increased gap between links */
+    gap: 20px;
 }
 
 .nav-links a {
     text-decoration: none;
-    color: white;
-    font-size: 18px; /* Increased font size */
-    font-weight: 500; /* Slightly bolder text */
-    padding: 10px 15px; /* Added padding for better click area */
-    border-radius: 5px; /* Rounded corners for links */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Transition effects */
+    color: #000000;
+    font-size: 16px;
+    padding: 10px 25px;
+    margin-left: 80px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
 }
 
 .nav-links a:hover {
-    background-color: #32cd32; /* Green background on hover */
-    color: white; /* Keep text color white */
-}
-
-
-/* About Section */
-.about-section {
-    padding: 80px 0;
-    background: url('https://img.freepik.com/free-photo/world-map-continent-global-support-graphic_53876-124649.jpg?t=st=1728475356~exp=1728478956~hmac=954512a13faf994b3f41e2bdbd90401d3abcd3b6c67cc90cec5ad4fcaeb66866&w=740') no-repeat center center; 
-    background-size: cover;
-    color: white; /* Change text color to white for better contrast */
-    text-align: center;
-    position: relative;
-    z-index: 1; /* To stay below navigation */
-}
-
-.about-section .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 20px;
-    background-color: rgba(0, 0, 0, 0.7); /* Darker semi-transparent background */
-    border-radius: 10px;
-    padding: 40px; /* Increased padding for the container */
-}
-
-.about-section h2 {
-    font-size: 48px;
-    color: #32cd32; /* Green */
-    margin-bottom: 30px;
-}
-
-.about-section h3 {
-    font-size: 32px;
-    margin-top: 40px;
-    margin-bottom: 15px;
-    color: #32cd32; /* Green */
-}
-
-/* Enhanced Features Section */
-.values-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: center; /* Center align for better visual appeal */
-    display: grid; /* Use grid for layout */
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid */
-    gap: 20px; /* Space between items */
-}
-
-.values-list li {
-    background-color: #32cd32; /* Green */
+    background-color: #32cd32;
     color: white;
-    border-radius: 10px;
-    padding: 15px; /* Add padding for better spacing */
-    font-size: 18px;
-    transition: transform 0.3s ease, background-color 0.3s ease; /* Add transition for hover effects */
 }
 
-.values-list li:hover {
-    transform: scale(1.05); /* Scale effect on hover */
-    background-color: #28a745; /* Darker green on hover */
-}
-
-/* Contact Section */
-.contact-section {
-    padding: 80px 0;
-    background-color: #00539CFF; /* Navy Blue */
-    color: white;
-    text-align: center;
-}
-
-.contact-section h2 {
-    font-size: 48px;
-    margin-bottom: 40px;
-}
-
-.contact-form {
-    max-width: 600px;
-    margin: 0 auto;
+.auth-buttons {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    gap: 15px;
 }
 
-.contact-form input, .contact-form textarea {
-    padding: 15px;
+.btn {
+    padding: 10px 20px;
     font-size: 16px;
-    border: none;
     border-radius: 5px;
-    width: 100%;
-}
-
-.contact-form button {
-    padding: 15px;
-    font-size: 18px;
+    text-decoration: none;
     color: white;
-    background-color: #32cd32; /* Green */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.contact-form button:hover {
-    background-color: #28a745; /* Slightly darker green */
+.btn.login {
+    background-color: #32cd32;
 }
 
-/* Footer */
-footer {
-    padding: 30px 0;
-    background-color: #333;
-    color: white;
+.btn.signup {
+    background-color: #32cd32;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.btn.login:hover {
+    background-color: #004080;
+}
+
+.btn.signup:hover {
+    background-color: #28a745;
+}
+
+.about-section {
+    padding: 100px 20px;
+    display: inline-block;
+    display: flex;
+    background-color: transparent;
+}
+
+.about-section h2 {
+    font-size: 40px;
+    color: rgba(0, 83, 156, 0.9);
+    margin-bottom: 20px;
     text-align: center;
 }
 
-footer p {
-    font-size: 16px;
+.about-section p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    text-align: center;
+    color: #1c1c1c;
+}
+
+.about-section h3 {
+    font-size: 30px;
+    color: #090909;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.values-list {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding: 20px;
+    list-style: none;
+}
+
+.values-list li {
+    font-size: 20px;
+    color: #2e2c2c;
+    background-color: #32cd32;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(50, 205, 50, 0.2);
+}
+
+.about-section {
+    padding: 100px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-section h2,
+.about-section h3,
+.about-section p {
+    text-align: center;
+}
+
+.values-list {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding: 20px;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+.values-list li {
+    font-size: 20px;
+    justify-content: center;
+    color: #fff;
+    background-color: #3f32cd;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(50, 205, 50, 0.2);
+    max-width: 150px;
+    text-align: center;
 }
