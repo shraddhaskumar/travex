@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: url('https://img.freepik.com/free-photo/fog-dark-clouds-mountains_1204-503.jpg?t=st=1728835573~exp=1728839173~hmac=aebec3ab726269d94b99f3afdb81bf307f130b4a17a97de956a06f86efaa3ebe&w=1060') no-repeat center center fixed;    
+    background-size: cover; 
+    color: #333;
+    scroll-behavior: smooth;
+    animation: fadeIn 2s ease-in-out; 
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 50px;
+    align-items: center;
+    background-color: transparent;
+    z-index: 100;
+}
+
+.logo h1 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #ffffff;
+    letter-spacing: 2px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #fffdfd;
+    font-size: 16px;
+    padding: 10px 25px;
+    margin-left: 80px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    background-color: #32cd32;
+    color: white;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn.login {
+    background-color: #32cd32;
+}
+
+.btn.signup {
+    background-color: #32cd32;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.login-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 60px);
+    padding: 20px;
+    color: #fff;
+}
+
+.login-section h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.login-form input {
+    padding: 12px;
+    border: 2px solid #00539CFF;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.login-form input:focus {
+    border-color: #32cd32;
+}
+
+.login-form button {
+    padding: 12px;
+    font-size: 18px;
+    color: white;
+    background-color: rgb(10, 29, 85);
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.login-form button:hover {
+    background-color: #32cd32;
+}

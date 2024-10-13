@@ -6,7 +6,7 @@
 }
 
 body {
-    background: url('https://img.freepik.com/free-photo/blue-peak-scenic-landscapes-river_1417-39.jpg?t=st=1728824404~exp=1728828004~hmac=2f774f999fda5fde2228f55641cdf834642f06e5122a24bf1f5ccf53b1c9224e&w=1060') no-repeat center center fixed;
+    background: url('https://img.freepik.com/free-photo/burning-sky_1361-14.jpg?t=st=1728823480~exp=1728827080~hmac=b585c14bc78bd4b7565f94a53100b20bbb9028f29a7651aa9190ca147e05c356&w=900') no-repeat center center fixed;
     background-size: cover;
     color: #333;
     scroll-behavior: smooth;
@@ -37,7 +37,7 @@ nav {
 .logo h1 {
     font-size: 30px;
     font-weight: bold;
-    color: #000000;
+    color: #fffefe;
     letter-spacing: 2px;
 }
 
@@ -49,7 +49,7 @@ nav {
 
 .nav-links a {
     text-decoration: none;
-    color: #000000;
+    color: #fffdfd;
     font-size: 16px;
     padding: 10px 25px;
     margin-left: 80px;
@@ -64,7 +64,7 @@ nav {
 
 .auth-buttons {
     display: flex;
-    gap: 15px;
+    gap: 1px;
 }
 
 .btn {
@@ -96,84 +96,66 @@ nav {
     background-color: #28a745;
 }
 
-.about-section {
+.about-section,
+.contact-section {
     padding: 100px 20px;
-    display: inline-block;
-    display: flex;
-    background-color: transparent;
-}
-
-.about-section h2 {
-    font-size: 40px;
-    color: rgba(0, 83, 156, 0.9);
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.about-section p {
-    font-size: 18px;
-    margin-bottom: 20px;
-    line-height: 1.6;
-    text-align: center;
-    color: #1c1c1c;
-}
-
-.about-section h3 {
-    font-size: 30px;
-    color: #090909;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-.values-list {
-    display: flex;
-    justify-content: center;
-    gap: 50px;
-    padding: 20px;
-    list-style: none;
-}
-
-.values-list li {
-    font-size: 20px;
-    color: #2e2c2c;
-    background-color: #32cd32;
-    padding: 10px 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 10px rgba(50, 205, 50, 0.2);
-}
-
-.about-section {
-    padding: 100px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 800px;
-    margin: 0 auto;
 }
 
 .about-section h2,
-.about-section h3,
-.about-section p {
+.contact-section h2 {
+    font-size: 40px;
+    color: #00539CFF;
+    margin-bottom: 20px;
     text-align: center;
 }
 
-.values-list {
+.about-section p,
+.contact-section p {
+    font-size: 18px;
+    color: aliceblue;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.contact-form {
     display: flex;
-    justify-content: center;
-    gap: 50px;
-    padding: 20px;
-    list-style: none;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
-.values-list li {
-    font-size: 20px;
-    justify-content: center;
-    color: #fff;
-    background-color: #3f32cd;
-    padding: 10px 20px;
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #00539CFF;
     border-radius: 10px;
-    box-shadow: 0 5px 10px rgba(50, 205, 50, 0.2);
-    max-width: 150px;
-    text-align: center;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #32cd32;
+}
+
+.contact-form button {
+    padding: 12px 30px;
+    font-size: 18px;
+    color: white;
+    background-color: #00539CFF;
+    border: none;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0, 83, 156, 0.3);
+}
+
+.contact-form button:hover {
+    background-color: #32cd32;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(50, 205, 50, 0.3);
 }
