@@ -1,6 +1,6 @@
 import express from 'express';
 import mysql from 'mysql2/promise';
-import bcrypt from 'bcrypt'; // Import bcrypt for password hashing
+import cors from "cors";
 
 const pool = mysql.createPool({
   host: 'localhost',    // your DB host
@@ -12,60 +12,9 @@ const pool = mysql.createPool({
 const app = express();
 
 app.use(express.json());
-
+app.use(cors());
 const PORT = process.env.PORT || 3033;
 
-// Sign Up Route
-app.post('/signup', async (request, response) => {
-  const { Name, Email, PhoneNumber, Address, Preferences, Password } = request.body;
-
-  try {
-    // Hash the password before storing it
-    const hashedPassword = await bcrypt.hash(Password, 10);
-
-    // Insert new client into the database
-    const [result] = await pool.query(
-      'INSERT INTO Clients (Name, Email, PhoneNumber, Address, Preferences, Password) VALUES (?, ?, ?, ?, ?, ?)',
-      [Name, Email, PhoneNumber, Address, Preferences, hashedPassword]
-    );
-
-    return response.status(201).send({ msg: 'User registered successfully!', ClientID: result.insertId });
-  } catch (err) {
-    console.error("Error during sign-up: ", err);
-    return response.status(500).send({ msg: 'Error during sign-up. Please try again.' });
-  }
-});
-
-// Login Route
-app.post('/login', async (request, response) => {
-  const { loginIdentifier, Password } = request.body;
-
-  try {
-    // Fetch user based on ClientID or Email
-    const [rows] = await pool.query(
-      'SELECT * FROM Clients WHERE ClientID = ? OR Email = ?',
-      [loginIdentifier, loginIdentifier]
-    );
-
-    if (rows.length === 0) {
-      return response.status(401).send({ msg: 'Invalid credentials' });
-    }
-
-    const user = rows[0];
-
-    // Compare the provided password with the hashed password in the database
-    const isMatch = await bcrypt.compare(Password, user.Password);
-
-    if (!isMatch) {
-      return response.status(401).send({ msg: 'Invalid credentials' });
-    }
-
-    return response.status(200).send({ msg: 'Login successful!', ClientID: user.ClientID });
-  } catch (err) {
-    console.error("Error during login: ", err);
-    return response.status(500).send({ msg: 'Error during login. Please try again.' });
-  }
-});
 
 // Test Route
 app.get("/", (request, response) => {
@@ -82,6 +31,112 @@ app.get('/data', async (request, response) => {
     return response.status(500).send({ msg: "Error while fetching clients" });
   }
 });
+
+app.post("/api/signup", (request, response)=>{
+  const { name, email, phoneNumber, address, preferences, password, confirmPassword } = request.body;
+
+  // Basic validation (you can add more checks as needed)
+  if (!name || !email || !phoneNumber || !address || !password || password !== confirmPassword) {
+      return response.status(400).json({ message: 'Invalid data provided' });
+  }
+
+
+
+  // Query to insert data into the clients table
+  const query = 'INSERT INTO clients (name, email, phoneNumber, address, preferences, password) VALUES (?, ?, ?, ?, ?, ?)';
+  const values = [name, email, phoneNumber, address, preferences, password];
+
+  // Use pool.query to insert data
+  pool.query(query, values, (err, result) => {
+      if (err) {
+          console.error('Error inserting data into database:', err);
+          return response.status(500).json({ message: 'Internal server error' });
+      }
+
+      // Respond with success message and the ID of the newly created client
+      response.status(200).json({ message: 'Signup successful', clientID: result.insertId });
+  }); 
+})
+
+// Assuming you're using Express and MySQL
+app.get("/packages", async (req, res) => {
+  console.log("Pack")
+  try {
+    const [results] = await pool.query('SELECT * FROM TravelPackages');
+    return res.status(200).json(results); // Send the results as JSON
+  } catch (err) {
+    console.error("Error fetching packages: ", err);
+    return res.status(500).json({ msg: "Error fetching packages" });
+  }
+});
+app.get('/packages', async (req, res) => {
+  const [results] = await pool.query('SELECT * FROM TravelPackages');
+  res.json(results);
+});
+
+app.get('/accommodations/:packageID', async (req, res) => {
+  const { packageID } = req.params;
+  const [results] = await pool.query('SELECT * FROM Accommodations WHERE PackageID = ?', [packageID]);
+  res.json(results);
+});
+// Fixed accommodations data for each packageID
+const fixedAccommodations = {
+  1: { HotelName: 'Mountain Retreat Lodge', Location: 'Himalayas, India' },
+  2: { HotelName: 'Kyoto Royal Hotel', Location: 'Kyoto, Japan' },
+  3: { HotelName: 'Maldives Beach Resort', Location: 'Maldives' },
+  4: { HotelName: 'Mara Safari Lodge', Location: 'Masai Mara, Kenya' },
+  5: { HotelName: 'Heritage Hotel', Location: 'Agra, India' },
+  6: { HotelName: 'Caribbean Cruise Line', Location: 'Caribbean Sea' }
+};
+
+// POST endpoint to insert accommodation data
+app.post('/accommodations', (req, res) => {
+  const { PackageID, CheckInDate, CheckOutDate, RoomType } = req.body;
+
+  // Get fixed data based on PackageID
+  const accommodationDetails = fixedAccommodations[PackageID];
+  if (!accommodationDetails) {
+    return res.status(400).json({ message: 'Invalid PackageID' });
+  }
+
+  const { HotelName, Location } = accommodationDetails;
+
+  // SQL query to insert into the Accommodations table
+  const query = `
+    INSERT INTO Accommodations (PackageID, HotelName, Location, CheckInDate, CheckOutDate, RoomType)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `;
+
+  const values = [PackageID, HotelName, Location, CheckInDate, CheckOutDate, RoomType];
+
+  pool.query(query, values, (error, result) => {
+    if (error) {
+      console.error('Error inserting data:', error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+    res.status(200).json({ message: 'Accommodation saved successfully!', accommodationID: result.insertId });
+  });
+});
+app.post('/transportation', (req, res) => {
+  const { PackageID, TransportType, Company, DepartureDate, ReturnDate } = req.body;
+
+  const query = `
+    INSERT INTO Transportation (PackageID, TransportType, Company, DepartureDate, ReturnDate)
+    VALUES (?, ?, ?, ?, ?)
+  `;
+
+  const values = [PackageID, TransportType, Company, DepartureDate, ReturnDate];
+
+  pool.query(query, values, (error, result) => {
+    if (error) {
+      console.error('Error inserting transportation data:', error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+    res.status(200).json({ message: 'Transportation saved successfully!', transportationID: result.insertId });
+  });
+});
+
+
 
 // Start Server
 app.listen(PORT, () => {

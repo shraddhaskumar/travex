@@ -1,0 +1,81 @@
+/* General Container for the Page */
+.transportation-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Heading Styling */
+  .transportation-container h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Form Styling */
+  .transportation-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  /* Labels */
+  .transportation-form label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+  }
+  
+  /* Input Fields */
+  .transportation-form input[type="date"],
+  .transportation-form select,
+  .transportation-form input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Dropdown (Company Selection) */
+  .transportation-form select {
+    cursor: pointer;
+  }
+  
+  /* Button Styling */
+  .submit-button {
+    padding: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Error or Info Messages */
+  .error-message,
+  .success-message {
+    text-align: center;
+    font-size: 14px;
+    color: #f00;
+    margin-top: 10px;
+  }
+  
+  .success-message {
+    color: #28a745;
+  }
+  

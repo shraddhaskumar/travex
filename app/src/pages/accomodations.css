@@ -1,0 +1,123 @@
+/* Improved CSS for Accommodations Section */
+
+.accommodations-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 40px 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+  }
+  
+  .accommodations-container h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  /* Styling for the filter form */
+  .filter-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .filter-form label {
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .filter-form input {
+    padding: 12px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+  
+  .filter-form input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+  }
+  
+  /* Styling for the accommodations list */
+  .accommodations-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    justify-content: center;
+  }
+  
+  /* Styling for each individual accommodation box */
+  .accommodation-box {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .accommodation-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Title inside the accommodation box */
+  .accommodation-box h3 {
+    font-size: 1.6em;
+    margin-bottom: 15px;
+    color: #2c3e50;
+  }
+  
+  /* Details about the accommodation */
+  .accommodation-box p {
+    font-size: 1.1em;
+    margin: 10px 0;
+    color: #555;
+  }
+  
+  .accommodation-box p strong {
+    color: #333;
+    font-weight: 600;
+  }
+  
+  /* Button styling */
+  .book-now-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 15px;
+    background-color: #4a90e2;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .book-now-btn:hover {
+    background-color: #3a7bc8;
+  }
+  
+  /* Adding responsiveness */
+  @media (max-width: 768px) {
+    .accommodations-container h2 {
+      font-size: 2em;
+    }
+  
+    .filter-form {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .filter-form input {
+      width: 100%;
+    }
+  
+    .accommodations-list {
+      grid-template-columns: 1fr;
+    }
+  }

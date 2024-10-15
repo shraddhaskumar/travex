@@ -1,0 +1,25 @@
+.packages-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px;
+  }
+  
+  .package-box {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+    width: calc(33% - 20px); /* Adjust width for three boxes per row */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .package-box h3 {
+    margin-top: 0;
+  }
+  
+  .package-box p {
+    margin: 5px 0;
+  }
+  

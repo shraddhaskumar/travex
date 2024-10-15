@@ -5,35 +5,6 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-body {
-    background: url('https://img.freepik.com/free-photo/blue-peak-scenic-landscapes-river_1417-39.jpg?t=st=1728824404~exp=1728828004~hmac=2f774f999fda5fde2228f55641cdf834642f06e5122a24bf1f5ccf53b1c9224e&w=1060') no-repeat center center fixed;
-    background-size: cover;
-    color: #333;
-    scroll-behavior: smooth;
-    animation: fadeIn 2s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 50px;
-    align-items: center;
-    background-color: transparent;
-    z-index: 100;
-}
-
 .logo h1 {
     font-size: 30px;
     font-weight: bold;
@@ -42,39 +13,6 @@ nav {
 }
 
 
-.auth-buttons {
-    display: flex;
-    gap: 15px;
-}
-
-.btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    text-decoration: none;
-    color: white;
-    transition: background-color 0.3s ease;
-}
-
-.btn.login {
-    background-color: #32cd32;
-}
-
-.btn.signup {
-    background-color: #32cd32;
-}
-
-.btn:hover {
-    opacity: 0.9;
-}
-
-.btn.login:hover {
-    background-color: #004080;
-}
-
-.btn.signup:hover {
-    background-color: #28a745;
-}
 
 .about-section {
     padding: 100px 20px;

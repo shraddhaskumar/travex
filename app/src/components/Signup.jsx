@@ -1,10 +1,9 @@
 import React from 'react';
 import './sign_up.css'; // Add styles as needed
-
-export const Signup = ({ onClose }) => {
-    const handleSubmit = (event) => {
+const Signup = ({ onClose }) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Add your form submission logic here
+
         const formData = new FormData(event.target);
         const data = {
             name: formData.get('signupName'),
@@ -16,7 +15,29 @@ export const Signup = ({ onClose }) => {
             confirmPassword: formData.get('confirmPassword'),
         };
 
-        console.log(data); // For debugging; replace with actual submission logic
+        console.log(data); // For debugging
+
+        try {
+            // Send a POST request to your backend API
+            const response = await fetch('http://localhost:3033/api/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            // Handle response from the server
+            if (response.ok) {
+                const responseData = await response.json();
+                console.log('Signup successful:', responseData);
+                // You can also handle redirection, messages, or any further action here.
+            } else {
+                console.error('Signup failed:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error during signup:', error);
+        }
     };
 
     return (
@@ -26,7 +47,7 @@ export const Signup = ({ onClose }) => {
                     <span
                         className="close"
                         id="closeSignup"
-                        onClick={onClose} // Close the modal when clicked
+                        onClick={onClose}
                     >
                         &times;
                     </span>
