@@ -1,0 +1,115 @@
+/* General styles for the booking page */
+.booking-page {
+  margin: 20px;
+  padding: 20px;
+  background-color: #f9f9f9; /* Light background color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: #333; /* Dark text color */
+}
+
+.package-details {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #fff; /* White background for package details */
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.package-details h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #333; /* Dark text color */
+}
+
+.package-details p {
+  margin: 5px 0; /* Margin for spacing between paragraphs */
+  color: #555; /* Grey color for text */
+}
+
+/* Styles for the booking form */
+form {
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #fff; /* White background for the form */
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block; /* Block display for labels */
+  margin-bottom: 5px;
+  font-weight: bold; /* Bold font for labels */
+  color: #333; /* Dark text color */
+}
+
+input[type="date"],
+input[type="number"],
+input[type="text"] {
+  width: 100%; /* Full width for inputs */
+  padding: 10px; /* Padding inside the input */
+  margin-bottom: 15px; /* Margin for spacing */
+  border: 1px solid #ccc; /* Light border for inputs */
+  border-radius: 4px; /* Rounded corners for inputs */
+  font-size: 1em; /* Font size for inputs */
+}
+
+input[type="date"]:focus,
+input[type="number"]:focus,
+input[type="text"]:focus {
+  border-color: #007bff; /* Blue border on focus */
+  outline: none; /* Remove outline */
+}
+
+button {
+  padding: 10px 15px; /* Padding for buttons */
+  background-color: #007bff; /* Primary button color */
+  color: white; /* White text color */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor for buttons */
+  font-size: 1em; /* Font size for buttons */
+  transition: background-color 0.3s; /* Smooth transition */
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+button:disabled {
+  background-color: #ccc; /* Grey background for disabled button */
+  cursor: not-allowed; /* Not-allowed cursor */
+}
+
+/* Styles for user bookings display */
+.user-bookings {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #fff; /* White background for bookings */
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.user-bookings h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #333; /* Dark text color */
+}
+
+.booking-item {
+  margin-bottom: 10px; /* Space between booking items */
+  border: 1px solid #ccc; /* Light border for booking items */
+  padding: 10px; /* Padding inside booking items */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #f8f8f8; /* Light background for booking items */
+}
+
+.booking-item p {
+  margin: 5px 0; /* Margin for spacing */
+  color: #555; /* Grey color for text */
+}

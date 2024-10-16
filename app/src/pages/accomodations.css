@@ -1,123 +1,141 @@
-/* Improved CSS for Accommodations Section */
+/* Global styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+  line-height: 1.6;
+}
 
+/* Container styling */
 .accommodations-container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 40px 20px;
-    font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  font-size: 32px;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+/* Form Styling */
+.filter-form, .hotel-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.filter-form label, .hotel-selection label {
+  font-weight: 600;
+  color: #34495e;
+  margin-bottom: 8px;
+  text-align: center;
+  width: 100%;
+}
+
+.filter-form select,
+.filter-form input,
+.hotel-selection select {
+  width: 100%;
+  max-width: 300px;
+  padding: 12px;
+  border: 1px solid #bdc3c7;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.filter-form select:focus,
+.filter-form input:focus,
+.hotel-selection select:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  outline: none;
+}
+
+/* Submit Button */
+button {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  padding: 14px;
+  margin: 30px auto 0;
+  background-color: #3498db;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Navigation arrow */
+.navigation-arrow {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.navigation-arrow a {
+  display: flex;
+  align-items: center;
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.navigation-arrow a:hover {
+  color: #2980b9;
+}
+
+.navigation-arrow span {
+  margin-left: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .accommodations-container {
+    padding: 20px;
+    margin: 20px;
   }
-  
-  .accommodations-container h2 {
-    text-align: center;
-    font-size: 2.5em;
-    margin-bottom: 30px;
-    color: #333;
+
+  h2 {
+    font-size: 28px;
   }
-  
-  /* Styling for the filter form */
-  .filter-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-    gap: 20px;
+
+  .filter-form select,
+  .filter-form input,
+  .hotel-selection select,
+  button {
+    max-width: 100%;
   }
-  
-  .filter-form label {
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .filter-form input {
-    padding: 12px;
-    font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-  }
-  
-  .filter-form input:focus {
-    outline: none;
-    border-color: #4a90e2;
-    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
-  }
-  
-  /* Styling for the accommodations list */
-  .accommodations-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    justify-content: center;
-  }
-  
-  /* Styling for each individual accommodation box */
-  .accommodation-box {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    padding: 25px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-  }
-  
-  .accommodation-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  }
-  
-  /* Title inside the accommodation box */
-  .accommodation-box h3 {
-    font-size: 1.6em;
-    margin-bottom: 15px;
-    color: #2c3e50;
-  }
-  
-  /* Details about the accommodation */
-  .accommodation-box p {
-    font-size: 1.1em;
-    margin: 10px 0;
-    color: #555;
-  }
-  
-  .accommodation-box p strong {
-    color: #333;
-    font-weight: 600;
-  }
-  
-  /* Button styling */
-  .book-now-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    margin-top: 15px;
-    background-color: #4a90e2;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .book-now-btn:hover {
-    background-color: #3a7bc8;
-  }
-  
-  /* Adding responsiveness */
-  @media (max-width: 768px) {
-    .accommodations-container h2 {
-      font-size: 2em;
-    }
-  
-    .filter-form {
-      flex-direction: column;
-      align-items: stretch;
-    }
-  
-    .filter-form input {
-      width: 100%;
-    }
-  
-    .accommodations-list {
-      grid-template-columns: 1fr;
-    }
-  }
+}

@@ -1,11 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Signup from './Signup';
+import Login from './Login';
 import './header.css';
-import Login  from './Login';
 
 const Header = () => {
     const [showSignupModal, setShowSignupModal] = useState(false);
     const [showLoginModal, setShowLoginModal] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [clientId, setClientId] = useState('');
+
+    useEffect(() => {
+        const checkLoginStatus = () => {
+            const storedClientId = localStorage.getItem('clientID');
+            if (storedClientId) {
+                setIsLoggedIn(true);
+                setClientId(storedClientId);
+            } else {
+                setIsLoggedIn(false);
+                setClientId('');
+            }
+        };
+
+        checkLoginStatus();
+
+        // Add event listener for storage changes
+        window.addEventListener('storage', checkLoginStatus);
+
+        // Clean up event listener
+        return () => {
+            window.removeEventListener('storage', checkLoginStatus);
+        };
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem('clientID');
+        setIsLoggedIn(false);
+        setClientId('');
+    };
 
     return (
         <>
@@ -19,31 +50,43 @@ const Header = () => {
                         <li><a href="/packages">PACKAGES</a></li>
                         <li><a href="/accommodations/:packageID">ACCOMODATIONS</a></li>
                         <li><a href="/transportation/:packageID">TRANSPORT</a></li>
-                        <li><a href="#">BOOKINGS</a></li>
-                        <li><a href="/about">About Us</a></li>                     
-                        <li><a href="#" id="loginBtn"
-                        onClick={() => setShowLoginModal(true)} 
-                        >Login</a></li>
-                        <li>
-                            <a
-                                href="#"
-                                id="signupBtn"
-                                onClick={() => setShowSignupModal(true)} // Open Signup modal
-                            >
-                                Sign Up
-                            </a>
-                        </li>
+                        <li><a href="/booking/:packageID">BOOKINGS</a></li>
+                        <li><a href="/about">About Us</a></li>
+                        {isLoggedIn ? (
+                            <>
+                                <li><span style={{ color: '#007bff', padding: '10px 15px' }}>Client ID: {clientId}</span></li>
+                                <li><a href="#" onClick={handleLogout}>Logout</a></li>
+                            </>
+                        ) : (
+                            <>
+                                <li><a href="#" onClick={() => setShowLoginModal(true)}>Login</a></li>
+                                <li><a href="#" onClick={() => setShowSignupModal(true)}>Sign Up</a></li>
+                            </>
+                        )}
                     </ul>
                 </nav>
             </header>
 
-            {/* Show Signup Modal when state is true */}
             {showSignupModal && (
-                <Signup onClose={() => setShowSignupModal(false)} />
+                <Signup 
+                    onClose={() => setShowSignupModal(false)}
+                    onSignupSuccess={(clientId) => {
+                        setIsLoggedIn(true);
+                        setClientId(clientId);
+                        setShowSignupModal(false);
+                    }}
+                />
             )}
-             {/* Show Logup Modal when state is true */}
-             {showLoginModal && (
-                <Login onClose={() => setShowLoginModal(false)} />
+
+            {showLoginModal && (
+                <Login 
+                    onClose={() => setShowLoginModal(false)}
+                    onLoginSuccess={(clientId) => {
+                        setIsLoggedIn(true);
+                        setClientId(clientId);
+                        setShowLoginModal(false);
+                    }}
+                />
             )}
         </>
     );

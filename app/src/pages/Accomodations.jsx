@@ -1,55 +1,66 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // Added useNavigate for redirection
-import './accomodations.css'; // Optional: For styling
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+import './accomodations.css';
 
 const Accommodations = () => {
-  const { packageID } = useParams(); // Get the PackageID from the URL
-  const navigate = useNavigate(); // Use navigate for redirection
-  const [accommodations, setAccommodations] = useState([]);
+  const { packageID } = useParams();
+  const navigate = useNavigate();
+  const [locations, setLocations] = useState([]);
+  const [hotels, setHotels] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState('');
   const [filters, setFilters] = useState({
     checkInDate: '',
     checkOutDate: '',
     roomType: ''
   });
-
-  const [selectedAccommodation, setSelectedAccommodation] = useState({
-    HotelName: '',
-    Location: ''
-  });
-
+  const [selectedHotel, setSelectedHotel] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  
   useEffect(() => {
-    // Fetch accommodations based on the packageID
-    const fetchAccommodations = async () => {
+    const fetchLocations = async () => {
       try {
-        const response = await fetch(`http://localhost:3033/accommodations/${packageID}`);
+        const response = await fetch(`http://localhost:3033/locations/${packageID}`);
         const data = await response.json();
-        setAccommodations(data); // Assuming the API returns an array of accommodations
+        setLocations(data);
       } catch (error) {
-        console.error('Error fetching accommodations:', error);
+        console.error('Error fetching locations:', error);
       }
     };
 
-    fetchAccommodations();
+    fetchLocations();
   }, [packageID]);
+
+  const handleLocationChange = (event) => {
+    const selectedLocation = event.target.value;
+    setSelectedLocation(selectedLocation);
+    fetchHotels(selectedLocation);
+  };
+
+  const fetchHotels = async (location) => {
+    try {
+      const response = await fetch(`http://localhost:3033/hotels/${location}`);
+      const data = await response.json();
+      setHotels(data);
+    } catch (error) {
+      console.error('Error fetching hotels:', error);
+    }
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFilters((prevFilters) => ({
+    setFilters(prevFilters => ({
       ...prevFilters,
       [name]: value
     }));
-  };
-
-  const handleAccommodationSelection = (accommodation) => {
-    setSelectedAccommodation(accommodation);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const submissionData = {
       PackageID: packageID,
-      HotelName: selectedAccommodation.HotelName,
-      Location: selectedAccommodation.Location,
+      HotelName: selectedHotel,
+      Location: selectedLocation,
       CheckInDate: filters.checkInDate,
       CheckOutDate: filters.checkOutDate,
       RoomType: filters.roomType
@@ -66,7 +77,7 @@ const Accommodations = () => {
 
       if (response.ok) {
         console.log('Accommodation saved successfully!');
-        navigate(`/transportation/${packageID}`); // Redirect to the transportation page
+        setIsSubmitted(true);
       } else {
         console.error('Failed to save accommodation');
       }
@@ -79,52 +90,65 @@ const Accommodations = () => {
     <div className="accommodations-container">
       <h2>Accommodations for Package {packageID}</h2>
 
-      {/* Filters */}
       <div className="filter-form">
-        <label>Check-In Date:</label>
-        <input type="date" name="checkInDate" value={filters.checkInDate} onChange={handleInputChange} />
+        <div className="form-group">
+          <label>Location:</label>
+          <select value={selectedLocation} onChange={handleLocationChange}>
+            <option value="">Select a Location</option>
+            {locations.map((location) => (
+              <option key={location.id} value={location.name}>{location.name}</option>
+            ))}
+          </select>
+        </div>
 
-        <label>Check-Out Date:</label>
-        <input type="date" name="checkOutDate" value={filters.checkOutDate} onChange={handleInputChange} />
-
-        <label>Room Type:</label>
-        <input type="text" name="roomType" placeholder="e.g., Suite, Double" value={filters.roomType} onChange={handleInputChange} />
-      </div>
-
-      {/* Accommodation List */}
-      <div className="accommodations-list">
-        {accommodations.length > 0 ? (
-          accommodations.map((accommodation) => (
-            <div
-              className={`accommodation-box ${selectedAccommodation.HotelName === accommodation.HotelName ? 'selected' : ''}`}
-              key={accommodation.AccommodationID}
-              onClick={() => handleAccommodationSelection(accommodation)}
-            >
-              <h3>{accommodation.HotelName}</h3>
-              <p><strong>Location:</strong> {accommodation.Location}</p>
-              <p><strong>Check-In:</strong> {accommodation.CheckInDate}</p>
-              <p><strong>Check-Out:</strong> {accommodation.CheckOutDate}</p>
-              <p><strong>Room Type:</strong> {accommodation.RoomType}</p>
-            </div>
-          ))
-        ) : (
-          <p>No accommodations available</p>
+        {selectedLocation && (
+          <div className="form-group">
+            <label>Select Hotel:</label>
+            <select value={selectedHotel} onChange={(e) => setSelectedHotel(e.target.value)}>
+              <option value="">Select a Hotel</option>
+              {hotels.map((hotel) => (
+                <option key={hotel.id} value={hotel.name}>{hotel.name}</option>
+              ))}
+            </select>
+          </div>
         )}
+
+        <div className="form-group">
+          <label>Check-In Date:</label>
+          <input type="date" name="checkInDate" value={filters.checkInDate} onChange={handleInputChange} />
+        </div>
+
+        <div className="form-group">
+          <label>Check-Out Date:</label>
+          <input type="date" name="checkOutDate" value={filters.checkOutDate} onChange={handleInputChange} />
+        </div>
+
+        <div className="form-group">
+          <label>Room Type:</label>
+          <select name="roomType" value={filters.roomType} onChange={handleInputChange}>
+            <option value="">Select Room Type</option>
+            <option value="Suite">Suite</option>
+            <option value="Double">Double</option>
+            <option value="Single">Single</option>
+          </select>
+        </div>
       </div>
 
-      {/* Display Selected Accommodation */}
-      {selectedAccommodation.HotelName && (
-        <div className="selected-accommodation">
-          <h4>Selected Accommodation:</h4>
-          <p><strong>Hotel Name:</strong> {selectedAccommodation.HotelName}</p>
-          <p><strong>Location:</strong> {selectedAccommodation.Location}</p>
+      <button 
+        onClick={handleSubmit} 
+        disabled={!selectedHotel || !filters.checkInDate || !filters.checkOutDate || !filters.roomType || isSubmitted}
+      >
+        {isSubmitted ? 'Submitted' : 'Submit Accommodation'}
+      </button>
+
+      {isSubmitted && (
+        <div className="navigation-arrow">
+          <Link to={`/transportation/${packageID}`}>
+            <ArrowRight size={24} />
+            <span>Go to Transportation</span>
+          </Link>
         </div>
       )}
-
-      {/* Submit Button */}
-      <button onClick={handleSubmit} disabled={!selectedAccommodation.HotelName}>
-        Submit Accommodation
-      </button>
     </div>
   );
 };

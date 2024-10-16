@@ -1,81 +1,129 @@
-/* General Container for the Page */
+/* Transportation Container */
 .transportation-container {
-    max-width: 800px;
-    margin: 0 auto;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.transportation-container h2 {
+  text-align: center;
+  font-size: 32px;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+/* Form Styling */
+.transportation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #34495e;
+  margin-bottom: 8px;
+  text-align: center;
+  width: 100%;
+}
+
+.form-group select,
+.form-group input {
+  width: 100%;
+  max-width: 300px;
+  padding: 12px;
+  border: 1px solid #bdc3c7;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.form-group select:focus,
+.form-group input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  outline: none;
+}
+
+/* Submit Button */
+button {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  padding: 14px;
+  margin: 30px auto 0;
+  background-color: #3498db;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Navigation arrow */
+.navigation-arrow {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.navigation-arrow a {
+  display: flex;
+  align-items: center;
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.navigation-arrow a:hover {
+  color: #2980b9;
+}
+
+.navigation-arrow span {
+  margin-left: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .transportation-container {
     padding: 20px;
-    background-color: #f7f7f7;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
   }
-  
-  /* Heading Styling */
-  .transportation-container h2 {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
+
+  h2 {
+    font-size: 28px;
   }
-  
-  /* Form Styling */
-  .transportation-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
+
+  .form-group select,
+  .form-group input,
+  button {
+    max-width: 100%;
   }
-  
-  /* Labels */
-  .transportation-form label {
-    font-size: 16px;
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 5px;
-  }
-  
-  /* Input Fields */
-  .transportation-form input[type="date"],
-  .transportation-form select,
-  .transportation-form input[type="text"] {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  /* Dropdown (Company Selection) */
-  .transportation-form select {
-    cursor: pointer;
-  }
-  
-  /* Button Styling */
-  .submit-button {
-    padding: 12px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .submit-button:hover {
-    background-color: #45a049;
-  }
-  
-  /* Error or Info Messages */
-  .error-message,
-  .success-message {
-    text-align: center;
-    font-size: 14px;
-    color: #f00;
-    margin-top: 10px;
-  }
-  
-  .success-message {
-    color: #28a745;
-  }
-  
+}

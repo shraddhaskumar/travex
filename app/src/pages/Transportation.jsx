@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import './transportation.css'; // Optional: For styling
+import { useParams, Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+import './transportation.css';
 
 const Transportation = () => {
-  const { packageID } = useParams(); // Get the PackageID from the URL
+  const { packageID } = useParams();
   const [transportData, setTransportData] = useState({
     transportType: '',
     company: '',
     departureDate: '',
     returnDate: ''
   });
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Sample company data based on transport type
   const companyOptions = {
     flight: ['Air India', 'Delta Airlines', 'Emirates'],
     bus: ['Greyhound', 'Megabus', 'FlixBus'],
@@ -47,6 +48,7 @@ const Transportation = () => {
 
       if (response.ok) {
         console.log('Transportation saved successfully!');
+        setIsSubmitted(true);
       } else {
         console.error('Failed to save transportation');
       }
@@ -57,38 +59,79 @@ const Transportation = () => {
 
   return (
     <div className="transportation-container">
-      <h2>Submit Transportation Details for Package {packageID}</h2>
+      <h2>Transportation Details for Package {packageID}</h2>
 
-      <form onSubmit={handleSubmit}>
-        <label>Transport Type:</label>
-        <select name="transportType" value={transportData.transportType} onChange={handleInputChange}>
-          <option value="">Select Transport Type</option>
-          <option value="flight">Flight</option>
-          <option value="bus">Bus</option>
-          <option value="car">Car</option>
-        </select>
+      <form onSubmit={handleSubmit} className="transportation-form">
+        <div className="form-group">
+          <label>Transport Type:</label>
+          <select 
+            name="transportType" 
+            value={transportData.transportType} 
+            onChange={handleInputChange}
+            required
+          >
+            <option value="">Select Transport Type</option>
+            <option value="flight">Flight</option>
+            <option value="bus">Bus</option>
+            <option value="car">Car</option>
+          </select>
+        </div>
 
-        {/* Company dropdown will be populated based on the selected transport type */}
         {transportData.transportType && (
-          <>
+          <div className="form-group">
             <label>Company:</label>
-            <select name="company" value={transportData.company} onChange={handleInputChange}>
+            <select 
+              name="company" 
+              value={transportData.company} 
+              onChange={handleInputChange}
+              required
+            >
               <option value="">Select Company</option>
               {companyOptions[transportData.transportType]?.map((company, index) => (
                 <option key={index} value={company}>{company}</option>
               ))}
             </select>
-          </>
+          </div>
         )}
 
-        <label>Departure Date:</label>
-        <input type="date" name="departureDate" value={transportData.departureDate} onChange={handleInputChange} required />
+        <div className="form-group">
+          <label>Departure Date:</label>
+          <input 
+            type="date" 
+            name="departureDate" 
+            value={transportData.departureDate} 
+            onChange={handleInputChange} 
+            required 
+          />
+        </div>
 
-        <label>Return Date:</label>
-        <input type="date" name="returnDate" value={transportData.returnDate} onChange={handleInputChange} required />
+        <div className="form-group">
+          <label>Return Date:</label>
+          <input 
+            type="date" 
+            name="returnDate" 
+            value={transportData.returnDate} 
+            onChange={handleInputChange} 
+            required 
+          />
+        </div>
 
-        <button type="submit">Submit Transportation</button>
+        <button 
+          type="submit" 
+          disabled={isSubmitted}
+        >
+          {isSubmitted ? 'Submitted' : 'Submit Transportation'}
+        </button>
       </form>
+
+      {isSubmitted && (
+        <div className="navigation-arrow">
+          <Link to={`/booking`}>
+            <ArrowRight size={24} />
+            <span>Go to Booking</span>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

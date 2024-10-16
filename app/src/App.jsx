@@ -8,6 +8,8 @@ import Login from './components/Login';
 import Packages from './pages/Packages'; 
 import Accomodations from './pages/Accomodations';
 import Transportation from './pages/Transportation'; 
+import Booking from './pages/Booking'; 
+
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
         <Route path="/accommodations/:packageID" element={<Accomodations />} /> {/* Add the route for accommodations */}
       
         <Route path="/transportation/:packageID" element={<Transportation />} />
+        <Route path="/booking" element={<Booking />} />
       </Routes>
     </BrowserRouter>
   );
