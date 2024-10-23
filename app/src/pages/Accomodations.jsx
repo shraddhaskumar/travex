@@ -16,7 +16,9 @@ const Accommodations = () => {
   });
   const [selectedHotel, setSelectedHotel] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
-  
+  const [accommodationId, setAccommodationId] = useState(null);
+  const [message, setMessage] = useState(''); // New state for the success message
+
   useEffect(() => {
     const fetchLocations = async () => {
       try {
@@ -67,8 +69,13 @@ const Accommodations = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:3033/accommodations', {
-        method: 'POST',
+      const url = isSubmitted
+        ? `http://localhost:3033/accommodations/${accommodationId}`
+        : 'http://localhost:3033/accommodations';
+      const method = isSubmitted ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method: method,
         headers: {
           'Content-Type': 'application/json'
         },
@@ -76,10 +83,20 @@ const Accommodations = () => {
       });
 
       if (response.ok) {
-        console.log('Accommodation saved successfully!');
+        const data = await response.json();
+        console.log(isSubmitted ? 'Accommodation updated successfully!' : 'Accommodation saved successfully!');
         setIsSubmitted(true);
+        setAccommodationId(data.accommodationID);
+
+        // Display success message
+        setMessage(isSubmitted ? 'Details changed successfully!' : 'Accommodation saved successfully!');
+
+        // Clear message after a few seconds
+        setTimeout(() => {
+          setMessage('');
+        }, 3000); // 3 seconds delay before message disappears
       } else {
-        console.error('Failed to save accommodation');
+        console.error(isSubmitted ? 'Failed to update accommodation' : 'Failed to save accommodation');
       }
     } catch (error) {
       console.error('Error submitting accommodation:', error);
@@ -115,17 +132,31 @@ const Accommodations = () => {
 
         <div className="form-group">
           <label>Check-In Date:</label>
-          <input type="date" name="checkInDate" value={filters.checkInDate} onChange={handleInputChange} />
+          <input
+            type="date"
+            name="checkInDate"
+            value={filters.checkInDate}
+            onChange={handleInputChange}
+          />
         </div>
 
         <div className="form-group">
           <label>Check-Out Date:</label>
-          <input type="date" name="checkOutDate" value={filters.checkOutDate} onChange={handleInputChange} />
+          <input
+            type="date"
+            name="checkOutDate"
+            value={filters.checkOutDate}
+            onChange={handleInputChange}
+          />
         </div>
 
         <div className="form-group">
           <label>Room Type:</label>
-          <select name="roomType" value={filters.roomType} onChange={handleInputChange}>
+          <select
+            name="roomType"
+            value={filters.roomType}
+            onChange={handleInputChange}
+          >
             <option value="">Select Room Type</option>
             <option value="Suite">Suite</option>
             <option value="Double">Double</option>
@@ -134,12 +165,16 @@ const Accommodations = () => {
         </div>
       </div>
 
-      <button 
-        onClick={handleSubmit} 
-        disabled={!selectedHotel || !filters.checkInDate || !filters.checkOutDate || !filters.roomType || isSubmitted}
+      <button
+        onClick={handleSubmit}
+        disabled={!selectedHotel || !filters.checkInDate || !filters.checkOutDate || !filters.roomType}
       >
-        {isSubmitted ? 'Submitted' : 'Submit Accommodation'}
+        {isSubmitted ? 'Change Details' : 'Submit Accommodation'}
       </button>
+
+      {message && (
+        <p className="success-message">{message}</p> // Display message here
+      )}
 
       {isSubmitted && (
         <div className="navigation-arrow">

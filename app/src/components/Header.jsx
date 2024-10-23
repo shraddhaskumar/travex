@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Signup from './Signup';
 import Login from './Login';
 import './header.css';
@@ -46,12 +47,14 @@ const Header = () => {
                         <h1>Travex</h1>
                     </div>
                     <ul className="nav-links">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/packages">PACKAGES</a></li>
-                        <li><a href="/accommodations/:packageID">ACCOMODATIONS</a></li>
-                        <li><a href="/transportation/:packageID">TRANSPORT</a></li>
-                        <li><a href="/booking/:packageID">BOOKINGS</a></li>
-                        <li><a href="/about">About Us</a></li>
+                        <li><Link to="/">HOME</Link></li>
+                        <li><Link to="/packages">PACKAGES</Link></li>
+                        <li><Link to="/accommodations/:packageID">ACCOMODATIONS</Link></li>
+                        <li><Link to="/transportation/:packageID">TRANSPORT</Link></li>
+                        {isLoggedIn && (
+                            <li><Link to="/mybookings">MY BOOKINGS</Link></li>
+                        )}
+                        
                         {isLoggedIn ? (
                             <>
                                 <li><span style={{ color: '#007bff', padding: '10px 15px' }}>Client ID: {clientId}</span></li>

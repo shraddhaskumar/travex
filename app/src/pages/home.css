@@ -1,58 +1,140 @@
+.home {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
 
-  body {
-    background-color: #ab8888;
-    color: #333;
-    scroll-behavior: smooth;
-    background: url('https://wallpaperaccess.com/full/1431673.jpg') no-repeat center center/cover;
-   
+.slider-container {
+  position: relative;
+  margin-top: 20px;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.slider-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 123, 255, 0.5);
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #ffffff;
+}
+
+.slider-btn-left {
+  left: 10px;
+}
+
+.slider-btn-right {
+  right: 10px;
+}
+.featured-packages {
+  margin-top: 40px;
+}
+
+.featured-packages h2 {
+  font-size: 32px;
+  color: #3498db;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.package-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.package-card {
+  background-color: #1f1f1f;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.package-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.package-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.about-section {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #1f1f1f;
+  border-radius: 8px;
+}
+
+.about-section h2 {
+  font-size: 24px;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.about-section p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #b3b3b3;
+}
+
+.cta-section {
+  margin-top: 40px;
+  text-align: center;
+  padding: 40px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 8px;
+}
+
+.cta-section h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.cta-section p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  color: #007bff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+}
+
+.cta-button:hover {
+  background-color: #f0f0f0;
+}
+
+@media (max-width: 1024px) {
+  .package-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  /* Updated header without background image and gradient */
-  header {
-    height: 8vh;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: white;
+}
+
+@media (max-width: 768px) {
+  .package-grid {
+    grid-template-columns: 1fr;
   }
-  
-  /* Remove the gradient overlay */
-  header::before {
-    /* Gradient removed */
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
-.hero {
-    min-height: 100vh; /* Full viewport height */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: rgba(11, 11, 11, 0.506);
-    stroke: width rgba(11, 11, 11, 0.506);
-    padding: 0;
-    margin: 0;
-  }
-  
-  /* Styling for the heading */
-  .hero h2 {
-    font-size: 48px;
-    margin-bottom: 20px;
-  }
-  
-  .hero p {
-    font-size: 24px;
-    margin-bottom: 40px;
-  }
-  
-  
-  
-  
-  
+}

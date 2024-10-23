@@ -46,17 +46,6 @@ app.post("/api/signup", async (request, response)=>{
   const query = 'INSERT INTO clients (name, email, phoneNumber, address, preferences, password) VALUES (?, ?, ?, ?, ?, ?)';
   const values = [name, email, phoneNumber, address, preferences, password];
 
-  // // Use pool.query to insert data
-  // pool.query(query, values, (err, result) => {
-  //     if (err) {
-  //         console.error('Error inserting data into database:', err);
-  //         return response.status(500).json({ message: 'Internal server error' });
-  //     }
-
-  //     // Respond with success message and the ID of the newly created client
-  //     response.status(200).json({ message: 'Signup successful', clientID: result.insertId });
-  // });
-
   try {
     console.log('Signing up User with values:', values);
     const [result] = await pool.query(query, values);
@@ -66,16 +55,14 @@ app.post("/api/signup", async (request, response)=>{
     console.error('Error signingup user:', error);
     response.status(500).json({ message: 'Internal server error' });
   }
-
-
 })
 
 // Assuming you're using Express and MySQL
 app.get("/packages", async (req, res) => {
-  console.log("Pack")
+  console.log("Fetching packages")
   try {
-    const [results] = await pool.query('SELECT * FROM TravelPackages');
-    return res.status(200).json(results); // Send the results as JSON
+    const [results] = await pool.query('SELECT PackageID, PackageName, Destination, Duration, Cost, Details, Category, ImageURL FROM TravelPackages');
+    return res.status(200).json(results);
   } catch (err) {
     console.error("Error fetching packages: ", err);
     return res.status(500).json({ msg: "Error fetching packages" });
@@ -155,7 +142,6 @@ app.get('/hotels/:location', async (req, res) => {
       ],
     };
 
-
     const selectedHotels = hotels[location] || [];
     res.status(200).json(selectedHotels);
   } catch (err) {
@@ -173,7 +159,6 @@ app.post('/accommodations', async (req, res) => {
     VALUES (?, ?, ?, ?, ?, ?)
   `;
 
-
   const values = [PackageID, HotelName, Location, CheckInDate, CheckOutDate, RoomType];
 
   try {
@@ -186,18 +171,7 @@ app.post('/accommodations', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
-app.post('/bookings', (req, res) => {
-  const { ClientID, PackageID, BookingDate, NumberOfPeople, TotalCost } = req.body;
-  const sql = `INSERT INTO Bookings (ClientID, PackageID, BookingDate, NumberOfPeople, TotalCost) 
-               VALUES (?, ?, ?, ?, ?)`;
 
-  db.query(sql, [ClientID, PackageID, BookingDate, NumberOfPeople, TotalCost], (err, result) => {
-    if (err) {
-      return res.status(500).send('Error saving booking');
-    }
-    res.status(200).send('Booking saved successfully!');
-  });
-});
 app.post('/transportation', async (req, res) => {
   const { PackageID, TransportType, Company, DepartureDate, ReturnDate } = req.body;
 
@@ -261,7 +235,7 @@ app.post('/api/login', async (request, response) => {
 app.get('/packages/:packageID', async (req, res) => {
   const { packageID } = req.params;
   try {
-    const [results] = await pool.query('SELECT * FROM TravelPackages WHERE PackageID = ?', [packageID]);
+    const [results] = await pool.query('SELECT PackageID, Cost FROM TravelPackages WHERE PackageID = ?', [packageID]);
     if (results.length > 0) {
       res.status(200).json(results[0]);
     } else {
@@ -275,38 +249,166 @@ app.get('/packages/:packageID', async (req, res) => {
 
 // Create a new booking
 app.post('/bookings', async (req, res) => {
+  console.log('Received booking request:', req.body);
+  
   const { ClientID, PackageID, BookingDate, NumberOfPeople, TotalCost } = req.body;
+  
+  if (!ClientID || !PackageID || !BookingDate || !NumberOfPeople || !TotalCost) {
+    console.log('Missing required fields:', { ClientID, PackageID, BookingDate, NumberOfPeople, TotalCost });
+    return res.status(400).json({ message: 'Missing required fields' });
+  }
+
   const query = `INSERT INTO Bookings (ClientID, PackageID, BookingDate, NumberOfPeople, TotalCost) 
                  VALUES (?, ?, ?, ?, ?)`;
 
   try {
+    console.log('Executing query:', query);
+    console.log('Query parameters:', [ClientID, PackageID, BookingDate, NumberOfPeople, TotalCost]);
+    
     const [result] = await pool.query(query, [ClientID, PackageID, BookingDate, NumberOfPeople, TotalCost]);
-    res.status(200).json({ message: 'Booking saved successfully!', bookingID: result.insertId });
+    
+    console.log('Query result:', result);
+    
+    if (result.affectedRows > 0) {
+      console.log('Booking saved successfully');
+      res.status(201).json({ 
+        message: 'Booking saved successfully!', 
+        bookingID: result.insertId 
+      });
+    } else {
+      console.log('Booking was not saved');
+      throw new Error('Booking was not saved');
+    }
   } catch (error) {
     console.error('Error saving booking:', error);
-    res.status(500).json({ message: 'Error saving booking' });
+    res.status(500).json({ message: 'Error saving booking: ' + error.message, error: error.toString() });
   }
 });
-
-// Fetch user's bookings
+// Fetch previous bookings for a client
 app.get('/bookings/:clientID', async (req, res) => {
-  const { clientID } = req.params;
+  const { clientID } = req.params;  
+  console.log(clientID);
   try {
     const query = `
-      SELECT b.*, tp.Name as PackageName
+      SELECT b.BookingID, b.PackageID, b.BookingDate, b.NumberOfPeople, b.TotalCost, p.PackageName
       FROM Bookings b
-      JOIN TravelPackages tp ON b.PackageID = tp.PackageID
+      JOIN TravelPackages p ON b.PackageID = p.PackageID
       WHERE b.ClientID = ?
+      ORDER BY b.BookingDate DESC
     `;
     const [results] = await pool.query(query, [clientID]);
     res.status(200).json(results);
   } catch (err) {
-    console.error("Error fetching user bookings: ", err);
-    res.status(500).json({ message: "Error fetching user bookings" });
+    console.error("Error fetching previous bookings: ", err);
+    res.status(500).json({ message: "Error fetching previous bookings" });
+  }
+});
+app.delete('/bookings/:id', (req, res) => {
+  const bookingId = req.params.id;
+  
+  const query = 'DELETE FROM Bookings WHERE BookingID = ?';
+  
+  pool.query(query, [bookingId], (err, result) => {
+    if (err) {
+      console.error('Error deleting booking:', err);
+      res.status(500).json({ error: 'An error occurred while deleting the booking' });
+    } else {
+      if (result.affectedRows === 0) {
+        res.status(404).json({ error: 'Booking not found' });
+      } else {
+        res.status(200).json({ message: 'Booking deleted successfully' });
+      }
+    }
+  });
+});
+app.put('/accommodations/:id', async (req, res) => {
+  const { id } = req.params;
+  const { PackageID, HotelName, Location, CheckInDate, CheckOutDate, RoomType } = req.body;
+
+  const query = `
+    UPDATE Accommodations 
+    SET PackageID = ?, HotelName = ?, Location = ?, CheckInDate = ?, CheckOutDate = ?, RoomType = ?
+    WHERE AccommodationID = ?
+  `;
+
+  const values = [PackageID, HotelName, Location, CheckInDate, CheckOutDate, RoomType, id];
+
+  try {
+    const [result] = await pool.query(query, values);
+    if (result.affectedRows > 0) {
+      res.status(200).json({ message: 'Accommodation updated successfully!', accommodationID: id });
+    } else {
+      res.status(404).json({ message: 'Accommodation not found' });
+    }
+  } catch (error) {
+    console.error('Error updating accommodation:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+app.get('/bookings/:clientID', async (req, res) => {
+  const { clientID } = req.params;
+  
+  try {
+    const query = `
+      SELECT 
+        b.BookingID,
+        b.PackageID,
+        b.BookingDate,
+        b.NumberOfPeople,
+        b.TotalCost,
+        p.PackageName,
+        p.Destination,
+        p.Duration
+      FROM Bookings b
+      JOIN TravelPackages p ON b.PackageID = p.PackageID
+      WHERE b.ClientID = ?
+      ORDER BY b.BookingDate DESC
+    `;
+    
+    const [results] = await pool.query(query, [clientID]);
+    
+    if (results.length === 0) {
+      return res.status(200).json([]);
+    }
+    
+    res.status(200).json(results);
+  } catch (error) {
+    console.error('Error fetching bookings:', error);
+    res.status(500).json({ 
+      message: 'Error fetching bookings',
+      error: error.message 
+    });
   }
 });
 
-
+// Cancel/Delete a booking
+app.delete('/bookings/:bookingID', async (req, res) => {
+  const { bookingID } = req.params;
+  
+  try {
+    // You might want to add additional checks here
+    // For example, verify that the booking belongs to the client making the request
+    
+    const query = 'DELETE FROM Bookings WHERE BookingID = ?';
+    const [result] = await pool.query(query, [bookingID]);
+    
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ 
+        message: 'Booking not found or already cancelled' 
+      });
+    }
+    
+    res.status(200).json({ 
+      message: 'Booking cancelled successfully' 
+    });
+  } catch (error) {
+    console.error('Error cancelling booking:', error);
+    res.status(500).json({ 
+      message: 'Error cancelling booking',
+      error: error.message 
+    });
+  }
+});
 
 // Start Server
 app.listen(PORT, () => {

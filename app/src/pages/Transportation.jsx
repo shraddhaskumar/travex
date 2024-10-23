@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import './transportation.css';
 
 const Transportation = () => {
   const { packageID } = useParams();
+  const navigate = useNavigate();
   const [transportData, setTransportData] = useState({
     transportType: '',
     company: '',
@@ -12,12 +13,31 @@ const Transportation = () => {
     returnDate: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [packageDetails, setPackageDetails] = useState(null);
 
   const companyOptions = {
     flight: ['Air India', 'Delta Airlines', 'Emirates'],
     bus: ['Greyhound', 'Megabus', 'FlixBus'],
     car: ['Hertz', 'Enterprise', 'Avis']
   };
+
+  useEffect(() => {
+    const fetchPackageDetails = async () => {
+      try {
+        const response = await fetch(`http://localhost:3033/packages/${packageID}`);
+        if (response.ok) {
+          const data = await response.json();
+          setPackageDetails(data);
+        } else {
+          console.error('Failed to fetch package details');
+        }
+      } catch (error) {
+        console.error('Error fetching package details:', error);
+      }
+    };
+
+    fetchPackageDetails();
+  }, [packageID]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -55,6 +75,10 @@ const Transportation = () => {
     } catch (error) {
       console.error('Error submitting transportation:', error);
     }
+  };
+
+  const handleGoToBooking = () => {
+    navigate('/booking', { state: { packageDetails } });
   };
 
   return (
@@ -126,10 +150,10 @@ const Transportation = () => {
 
       {isSubmitted && (
         <div className="navigation-arrow">
-          <Link to={`/booking`}>
+          <button onClick={handleGoToBooking} className="go-to-booking-btn">
             <ArrowRight size={24} />
             <span>Go to Booking</span>
-          </Link>
+          </button>
         </div>
       )}
     </div>

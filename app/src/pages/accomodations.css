@@ -1,8 +1,7 @@
 /* Global styles */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f0f2f5;
-  color: #333;
+
   line-height: 1.6;
 }
 
@@ -65,6 +64,14 @@ h2 {
   box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
   outline: none;
 }
+.accommodations-container {
+  flex: 1;
+  padding: 30px;
+  background-color: #1f1f1f; /* Dark background for boxes */
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Consistent shadow */
+}
+
 
 /* Submit Button */
 button {
